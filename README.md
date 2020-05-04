@@ -1,4 +1,4 @@
 # Sniffing
-Enables the data transfer from a virtual machine linux client to windows host over TCP/IP protocol
+Enables the transfer of the captured wireless traffic on a linux from virtual machine client to windows host over TCP/IP socket
 
 The sniffer program: https://github.com/QiQiQiQiQ/iso15118_wifi
