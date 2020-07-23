@@ -222,7 +222,7 @@ namespace Sniffing
              * port number must be the same with that on client machine
              */
             int port;
-            Console.WriteLine("Please enter a port number between 49152 and 65535");
+            Console.WriteLine("Please choose a port number between 49152 and 65535");
             string port_str = Console.ReadLine();
             port = Int32.Parse(port_str);
             while (port < 49152 || port > 65535)
