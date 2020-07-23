@@ -2,7 +2,8 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Input;
+using System.IO;
+using System.Text;
 
 namespace Sniffing
 {
@@ -152,8 +153,19 @@ namespace Sniffing
 
         private static UInt16 Error_cnt = 0; // count errors on receiving frames
 
+        private static System.IO.StreamWriter sw;
+
         static void Main(string[] args)
         {
+            // create logfile in working directory, filename is datetime in the form of yyyy_mm_dd-hh_mm_ss
+            string path = Directory.GetCurrentDirectory();            
+            string filename = DateTime.Now.ToString();
+            filename = filename.Replace("/", "_");
+            filename = filename.Replace(" ", "-");
+            filename = filename.Replace(":", "_");
+            string file = path + @"\" + filename + ".log";
+            sw = File.CreateText(@file);
+
             // open socket
             Open_Socket();
             
@@ -192,6 +204,9 @@ namespace Sniffing
                         }
                         else if (cki.Key == USER_COMMAND.EXIT)
                         {
+                            sw.Close();
+                            System.Diagnostics.Process.Start("explorer.exe", @path);
+                            Console.WriteLine("\nlog file is saved to " + path);
                             Console.WriteLine("\nconncetion shutdown, press any key to exit program...");
                             Send_to_client(FTYPE.EXIT_REQ, FLAG.NONE, null);
                             clientSocket.Close();
@@ -215,7 +230,7 @@ namespace Sniffing
             
         }
 
-        public static void Open_Socket()
+        private static void Open_Socket()
         {
             /* ask user to enter proper ip address and port of the client machine
              * ip could be checked in cmd.exe with 'ipconfig -all'
@@ -267,7 +282,7 @@ namespace Sniffing
             return;
         }
 
-        public static void read_and_print(Socket sock)
+        private static void read_and_print(Socket sock)
         {
             /* test code */
             try
@@ -381,12 +396,16 @@ namespace Sniffing
             return;
         }
 
-        private static void Write_to_logfile(byte[] buffer)
+        private static void Write_to_logfile(byte[] buffer, StreamWriter handle)
         {
             /* this function is not finished, the idea is that a logfile write stream is created when the program is started
              * it can be named after the date and time
              * this function writes the data in the buffer into the logfile in UTF-8 coded form.
              */
+            if (buffer.Length == 0)
+                return;
+            string utfString = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
+            handle.WriteLine(utfString);
             return;
         }
 
@@ -566,7 +585,7 @@ namespace Sniffing
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("**********************************************\nPCAP Global header");
                 Print_Content(buf_global_hdr, 0, 24, ConsoleColor.White);
-                Write_to_logfile(buf_global_hdr);
+                Write_to_logfile(buf_global_hdr, sw);
             }
             else if ( R_type == FTYPE.DATA )
             {
@@ -602,7 +621,7 @@ namespace Sniffing
                 }
                 Array.Clear(buf_packet_hdr, 0, buf_packet_hdr.Length);
                 clientSocket.Receive(buf_packet_hdr, LEN.PKT_HDR, SocketFlags.None);
-                Write_to_logfile(buf_packet_hdr);
+                Write_to_logfile(buf_packet_hdr, sw);
 
                 // radiotap header
                 wait_flag = Wait_For_Datastream((int)len_radiotap, "radiotap header");
@@ -618,7 +637,7 @@ namespace Sniffing
                 }
                 Array.Clear(buf_radiotap_hdr, 0, buf_radiotap_hdr.Length);
                 clientSocket.Receive(buf_radiotap_hdr, (int)len_radiotap, SocketFlags.None);
-                Write_to_logfile(buf_radiotap_hdr);
+                Write_to_logfile(buf_radiotap_hdr, sw);
 
                 // IEEE80211 frame
                 wait_flag = Wait_For_Datastream((int)(R_length - len_radiotap), "IEEE80211 packet " + packet_nr.ToString());
@@ -634,7 +653,7 @@ namespace Sniffing
                 }
                 Array.Clear(buf_ieee80211_frame, 0, buf_ieee80211_frame.Length);
                 clientSocket.Receive(buf_ieee80211_frame, (int)(R_length - len_radiotap), SocketFlags.None);
-                Write_to_logfile(buf_ieee80211_frame);
+                Write_to_logfile(buf_ieee80211_frame, sw);
                 
                 // send ack data, send stop request instead if STOP key pressed
                 if(Console.KeyAvailable == true)
@@ -753,6 +772,21 @@ namespace Sniffing
                 Console.ReadKey();
                 Send_to_client(FTYPE.DATA_ACK, FLAG.NONE, null);
             }
+        }
+
+        private static System.IO.StreamWriter create_logfile()
+        {
+            string path = Directory.GetCurrentDirectory();
+            string filename = DateTime.Now.ToString();
+            Console.WriteLine(path);
+            Console.WriteLine(filename);
+            filename = filename.Replace("/", "_");
+            filename = filename.Replace(" ", "-");
+            filename = filename.Replace(":", "_");
+            string file = path + @"\" + filename + ".log";
+            Console.WriteLine(file);
+            System.IO.StreamWriter handle = File.CreateText(@file);
+            return handle;
         }
     }
 }
