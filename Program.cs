@@ -28,29 +28,29 @@ namespace Sniffing
     }*/
     class FTYPE
     {
-        public const byte READY_TO_SEND = 0x00;  //Ready to send frame
-        public const byte SEND_REQ = 0x01;   //bit0 in reserved field: 0 - to send all, 1 - only secc/evcc frames
-        public const byte STOP_REQ = 0x02;
-        public const byte EXIT_REQ = 0x03;
-        public const byte DATA_ACK = 0x04;
+        public static byte READY_TO_SEND = 0x00;  //Ready to send frame
+        public static byte SEND_REQ = 0x01;   //bit0 in reserved field: 0 - to send all, 1 - only secc/evcc frames
+        public static byte STOP_REQ = 0x02;
+        public static byte EXIT_REQ = 0x03;
+        public static byte DATA_ACK = 0x04;
         //public const byte STOP_ACK = 0x05;
-        public const byte ERROR = 0x05;
-        public const byte DATA = 0x10;
-        public const byte GLOBAL_HEADER = 0x11;
-        public const UInt32 magic_number_swapped = 0xd4c3b2a1;
-        public const UInt32 magic_number_identical = 0xa1b2c3d4;
+        public static byte ERROR = 0x05;
+        public static byte DATA = 0x10;
+        public static byte GLOBAL_HEADER = 0x11;
+        public static UInt32 magic_number_swapped = 0xd4c3b2a1;
+        public static UInt32 magic_number_identical = 0xa1b2c3d4;
     }
     class FLAG
     {
-        public const byte NONE = 0x00;
+        public static byte NONE = 0x00;
         /* bit mask */
-        public const byte B1 = 0x01;
-        public const byte B2 = 0x02;
+        public static byte B1 = 0x01;
+        public static byte B2 = 0x02;
         /* bit 0 */
-        public const byte ALL = 0x01;
-        public const byte EV_EVSE = 0x00;
+        public static byte ALL = 0x01;
+        public static byte EV_EVSE = 0x00;
         /* bit 1 */
-        public const byte GLOBAL_HEADER = 0x02;
+        public static byte GLOBAL_HEADER = 0x02;
         public static bool global_hdr_exist(byte flag)
         {
             return ( (flag & (byte)0x02) == FLAG.GLOBAL_HEADER );
@@ -58,66 +58,66 @@ namespace Sniffing
     }
     class LEN
     {
-        public const int GLOBAL_HDR = 24;
-        public const int PKT_HDR = 16;
+        public static int GLOBAL_HDR = 24;
+        public static int PKT_HDR = 16;
     }
     class USER_COMMAND
     {
-        public const ConsoleKey REQ_ALL = ConsoleKey.A; // not working yet, not used in this programm
-        public const ConsoleKey REQ_EV_EVSE = ConsoleKey.E;
-        public const ConsoleKey EXIT = ConsoleKey.X;
-        public const ConsoleKey STOP = ConsoleKey.S;
+        public static ConsoleKey REQ_ALL = ConsoleKey.A; // not working yet, not used in this programm
+        public static ConsoleKey REQ_EV_EVSE = ConsoleKey.E;
+        public static ConsoleKey EXIT = ConsoleKey.X;
+        public static ConsoleKey STOP = ConsoleKey.S;
     }
     class IEEE80211
     {
         /* bit mask */
-        public const UInt16 FCTL_FTYPE = 0x000c;
-        public const UInt16 FCTL_STYPE = 0x00f0;
+        public static UInt16 FCTL_FTYPE = 0x000c;
+        public static UInt16 FCTL_STYPE = 0x00f0;
         /* frame type */
-        public const UInt16 FTYPE_MGMT = 0x0000;
-        public const UInt16 FTYPE_CTL = 0x0004;
-        public const UInt16 FTYPE_DATA = 0x0008;
-        public const UInt16 FTYPE_EXT = 0x000c;
+        public static UInt16 FTYPE_MGMT = 0x0000;
+        public static UInt16 FTYPE_CTL = 0x0004;
+        public static UInt16 FTYPE_DATA = 0x0008;
+        public static UInt16 FTYPE_EXT = 0x000c;
         /* subtype - management */
-        public const UInt16 STYPE_ASSOC_REQ = 0x0000;
-        public const UInt16 STYPE_ASSOC_RESP = 0x0010;
-        public const UInt16 STYPE_REASSOC_REQ = 0x0020;
-        public const UInt16 STYPE_REASSOC_RESP = 0x0030;
-        public const UInt16 STYPE_PROBE_REQ = 0x0040;
-        public const UInt16 STYPE_PROBE_RESP = 0x0050;
-        public const UInt16 STYPE_BEACON = 0x0080;
-        public const UInt16 STYPE_ATIM = 0x0090;
-        public const UInt16 STYPE_DISASSOC = 0x00a0;
-        public const UInt16 STYPE_AUTH = 0x00b0;
-        public const UInt16 STYPE_DEAUTH = 0x00c0;
-        public const UInt16 STYPE_ACTION = 0x00d0;
+        public static UInt16 STYPE_ASSOC_REQ = 0x0000;
+        public static UInt16 STYPE_ASSOC_RESP = 0x0010;
+        public static UInt16 STYPE_REASSOC_REQ = 0x0020;
+        public static UInt16 STYPE_REASSOC_RESP = 0x0030;
+        public static UInt16 STYPE_PROBE_REQ = 0x0040;
+        public static UInt16 STYPE_PROBE_RESP = 0x0050;
+        public static UInt16 STYPE_BEACON = 0x0080;
+        public static UInt16 STYPE_ATIM = 0x0090;
+        public static UInt16 STYPE_DISASSOC = 0x00a0;
+        public static UInt16 STYPE_AUTH = 0x00b0;
+        public static UInt16 STYPE_DEAUTH = 0x00c0;
+        public static UInt16 STYPE_ACTION = 0x00d0;
         /* subtype - control */
-        public const UInt16 STYPE_CTL_EXT = 0x0060;
-        public const UInt16 STYPE_BACK_REQ = 0x0080;
-        public const UInt16 STYPE_BACK = 0x0090;
-        public const UInt16 STYPE_PSPOLL = 0x00a0;
-        public const UInt16 STYPE_RTS = 0x00b0;
-        public const UInt16 STYPE_CTS = 0x00c0;
-        public const UInt16 STYPE_ACK = 0x00d0;
-        public const UInt16 STYPE_CFEND = 0x00e0;
+        public static UInt16 STYPE_CTL_EXT = 0x0060;
+        public static UInt16 STYPE_BACK_REQ = 0x0080;
+        public static UInt16 STYPE_BACK = 0x0090;
+        public static UInt16 STYPE_PSPOLL = 0x00a0;
+        public static UInt16 STYPE_RTS = 0x00b0;
+        public static UInt16 STYPE_CTS = 0x00c0;
+        public static UInt16 STYPE_ACK = 0x00d0;
+        public static UInt16 STYPE_CFEND = 0x00e0;
         public const UInt16 STYPE_CFENDACK = 0x00f0;
         /* subtype - data */
-        public const UInt16 STYPE_DATA = 0x0000;
-        public const UInt16 STYPE_DATA_CFACK = 0x0010;
-        public const UInt16 STYPE_DATA_CFPOLL = 0x0020;
-        public const UInt16 STYPE_DATA_CFACKPOLL = 0x0030;
-        public const UInt16 STYPE_NULLFUNC = 0x0040;
-        public const UInt16 STYPE_CFACK = 0x0050;
-        public const UInt16 STYPE_CFPOLL = 0x0060;
-        public const UInt16 STYPE_CFACKPOLL = 0x0070;
-        public const UInt16 STYPE_QOS_DATA = 0x0080;
-        public const UInt16 STYPE_QOS_DATA_CFACK = 0x0090;
-        public const UInt16 STYPE_QOS_DATA_CFPOLL = 0x00a0;
-        public const UInt16 STYPE_QOS_DATA_CFACKPOLL = 0x00b0;
-        public const UInt16 STYPE_QOS_NULLFUNC = 0x00c0;
-        public const UInt16 STYPE_QOS_CFACK = 0x00d0;
-        public const UInt16 STYPE_QOS_CFPOLL = 0x00e0;
-        public const UInt16 STYPE_QOS_CFACKPOLL = 0x00f0;
+        public static UInt16 STYPE_DATA = 0x0000;
+        public static UInt16 STYPE_DATA_CFACK = 0x0010;
+        public static UInt16 STYPE_DATA_CFPOLL = 0x0020;
+        public static UInt16 STYPE_DATA_CFACKPOLL = 0x0030;
+        public static UInt16 STYPE_NULLFUNC = 0x0040;
+        public static UInt16 STYPE_CFACK = 0x0050;
+        public static UInt16 STYPE_CFPOLL = 0x0060;
+        public static UInt16 STYPE_CFACKPOLL = 0x0070;
+        public static UInt16 STYPE_QOS_DATA = 0x0080;
+        public static UInt16 STYPE_QOS_DATA_CFACK = 0x0090;
+        public static UInt16 STYPE_QOS_DATA_CFPOLL = 0x00a0;
+        public static UInt16 STYPE_QOS_DATA_CFACKPOLL = 0x00b0;
+        public static UInt16 STYPE_QOS_NULLFUNC = 0x00c0;
+        public static UInt16 STYPE_QOS_CFACK = 0x00d0;
+        public static UInt16 STYPE_QOS_CFPOLL = 0x00e0;
+        public static UInt16 STYPE_QOS_CFACKPOLL = 0x00f0;
     }
     class BUFFER
     {
@@ -705,73 +705,6 @@ namespace Sniffing
             }
             Thread.Sleep(100);
             return true;
-        }
-        /*
-        private static int Wait_for_Command()
-        {
-            Console.WriteLine("Press Key to continue: X - Exit, A - request all frame, E - request frames from EV_EVSE");
-            while (true)
-            {
-                if(Console.KeyAvailable == true)
-                {
-                    ConsoleKeyInfo cki = Console.ReadKey(true);
-                    if (cki.Key == USER_COMMAND.EXIT)
-                    {
-                        Send_to_client(FTYPE.EXIT_REQ, FLAG.NONE, null);
-                        clientSocket.Close();
-                        Console.WriteLine("Socket closed");
-                        return 0;
-                    }
-                    else if (cki.Key == USER_COMMAND.REQ_ALL)
-                    {
-                        req_flag = FLAG.ALL;
-                        Send_to_client(FTYPE.SEND_REQ, FLAG.ALL, null);
-                        return 1;
-                    }
-                    else if (cki.Key == USER_COMMAND.REQ_EV_EVSE)
-                    {
-                        req_flag = FLAG.EV_EVSE;
-                        Send_to_client(FTYPE.SEND_REQ, FLAG.EV_EVSE, null);
-                        return 2;
-                    }
-                    else
-                        Thread.Sleep(500);
-                }
-                else
-                    Thread.Sleep(500);
-            }
-        }
-        */
-        private static void test(Socket sock)
-        {
-            /* test code */
-            /*
-            UInt32 data = 0xa1b2c3d4;
-            byte[] send_u8 = BitConverter.GetBytes(data);
-            byte[] read_u8 = new byte[4];
-            int num;
-            while (true)
-            {
-                Thread.Sleep(2000);
-                num = clientSocket.Send(send_u8, 0, send_u8.Length, SocketFlags.None);
-                Console.Write("Send: {0} {1} {2} {3}\n", send_u8[0].ToString("x2"), send_u8[1].ToString("x2"), send_u8[2].ToString("x2"), send_u8[3].ToString("x2"));
-                while (clientSocket.Available < 4) { }
-                num = clientSocket.Receive(read_u8, 0, 4, SocketFlags.None);
-                Console.Write("Read: {0} {1} {2} {3}\n", read_u8[0].ToString("x2"), read_u8[1].ToString("x2"), read_u8[2].ToString("x2"), read_u8[3].ToString("x2"));
-                Console.ReadKey(true);
-            }
-            */
-            while (true)
-            {
-                int num = sock.Receive(buf_receive, sock.Available, SocketFlags.None);
-                //Print_Content(buf_receive, 0, num);
-                while (Console.KeyAvailable == false)
-                {
-
-                }
-                Console.ReadKey();
-                Send_to_client(FTYPE.DATA_ACK, FLAG.NONE, null);
-            }
         }
 
         private static System.IO.StreamWriter create_logfile()
