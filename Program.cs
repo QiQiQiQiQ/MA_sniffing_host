@@ -7,25 +7,6 @@ using System.Text;
 
 namespace Sniffing
 {
-    /*
-    public struct win_linux_header
-    {
-        public byte type;
-        public byte flag;
-        public ushort len;
-
-        public static implicit operator win_linux_header(byte[] buffer)
-        {
-            return new win_linux_header() { type = buffer[0], flag = buffer[1], len = BitConverter.ToUInt16(buffer, 3) };
-        }
-    }
-    class Constants
-    {
-        public const int rbuf_len = 8192;    // define the buffer length for receiving messages
-        public const int sbuf_len = 256;    // define the buffer length for sending messages
-        public const int pcaphdr_len = 16;
-        public const int globalhdr_len = 24;
-    }*/
     class FTYPE
     {
         public static byte READY_TO_SEND = 0x00;  //Ready to send frame
